@@ -10,6 +10,8 @@ namespace GameProjectSimulation.Business.Abstract
     public interface IVerificationService
     {
         bool Verify(User user);
+
+        bool Save(User user);
        
     }
 }

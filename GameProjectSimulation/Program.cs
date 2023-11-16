@@ -1,6 +1,7 @@
 ﻿using GameProjectSimulation.Business.Abstract;
 using GameProjectSimulation.Business.Concrete;
 using GameProjectSimulation.Entities.Concrete;
+using System.Diagnostics;
 
 
 User user1 = new User()
@@ -32,9 +33,17 @@ Campaign campaign1 = new Campaign()
 };
 
 
+List<IVerificationService> verification = new List<IVerificationService>
+  {
+      new SmsVerificationManager(),
+      new EgovernmenentVerificationService()
+  };
+
 // parametre olarak giden goverment usermanager da verification oluyor.
-UserManager userManager = new UserManager(new EgovernmenentVerificationService() );
+UserManager userManager = new UserManager(verification);
 userManager.Add(user1);
+userManager.Save(user1);
+
 
 Console.WriteLine("--------------------");
 

@@ -3,26 +3,26 @@ using GameProjectSimulation.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GameProjectSimulation.Business.Concrete
 {
-    public class EgovernmenentVerificationService:IVerificationService
+    public class SmsVerificationManager : IVerificationService
     {
         public bool Save(User user)
         {
-            Console.WriteLine("Egovernment is added");
+            Console.WriteLine("Saved to database: " + " " + user.FirstName + " " + user.LastName);
             return true;
+
         }
 
         public bool Verify(User user)
         {
-            Console.WriteLine("E government is verified");
-            return user.TcNo.Length == 11 && user.BirthYear > 1900;
+            Console.WriteLine("Sms is verified");
+           return true;
         }
 
-       
     }
 }
+

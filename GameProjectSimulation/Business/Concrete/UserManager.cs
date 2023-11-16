@@ -12,26 +12,32 @@ namespace GameProjectSimulation.Business.Concrete
     public class UserManager : IUserService
     {
 
-        private IVerificationService _verificationService;
-        
+        private List<IVerificationService> _verificationServices;
+
         //EgovernmentVerification aşağıda verificationService oluyor.
-        public UserManager(IVerificationService verificationService)
+        public UserManager(List<IVerificationService> verificationService) //additional = Ek
         {
-            _verificationService = verificationService;
+            _verificationServices = verificationService;
         }
+
+        
 
         public bool Add(User user)
         {
-            if (_verificationService.Verify(user))
+            foreach (var verificationService in _verificationServices)
             {
-                Console.WriteLine("Registered successfully");
-                return true;
+                if (verificationService.Verify(user))
+                {
+                    Console.WriteLine("Registered successfully");
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("Verification failed,Registration unseccusfull");
+                    return false;
+                }
             }
-            else
-            {
-                Console.WriteLine("Verification failed,Registration unseccusfull");
-                return false;
-            }
+            return true;
         }
 
         public void Update(User user)
@@ -45,6 +51,12 @@ namespace GameProjectSimulation.Business.Concrete
             Console.WriteLine("Player deleted");
         }
 
-    
+        public void Save(User user)
+        {
+            foreach (var verificationService in _verificationServices)
+            {
+                verificationService.Save(user); 
+            }
+        }
     }
 }
