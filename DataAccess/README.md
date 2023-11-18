@@ -1,0 +1,1 @@
+DataAccess katmanýnda veri kaydetme ve okuma iþlemlerini gerçekleþtirdiðimiz kýsým burasýdýr.
